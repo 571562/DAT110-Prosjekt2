@@ -19,12 +19,11 @@ public class CreateTopicMsg extends Message {
     /**
      * Instantiates a new Create message msg.
      *
-     * @param type  the type
      * @param user  the user
      * @param topic the message
      */
-    public CreateTopicMsg(MessageType type, String user, String topic) {
-        super(type, user);
+    public CreateTopicMsg(String user, String topic) {
+        super(MessageType.CREATETOPIC, user);
         this.topic = topic;
     }
 

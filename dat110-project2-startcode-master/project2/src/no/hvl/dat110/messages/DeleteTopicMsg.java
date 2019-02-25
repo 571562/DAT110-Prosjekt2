@@ -21,12 +21,11 @@ public class DeleteTopicMsg extends Message {
     /**
      * Instantiates a new Delete message msg.
      *
-     * @param type  the type
      * @param user  the user
      * @param topic the message
      */
-    public DeleteTopicMsg(MessageType type, String user, String topic) {
-        super(type, user);
+    public DeleteTopicMsg( String user, String topic) {
+        super(MessageType.DELETETOPIC, user);
         this.topic = topic;
     }
 

@@ -1,17 +1,17 @@
 package no.hvl.dat110.broker.storage.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 import no.hvl.dat110.broker.ClientSession;
 import no.hvl.dat110.broker.Storage;
 import no.hvl.dat110.messages.ConnectMsg;
 import no.hvl.dat110.messages.MessageUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The type Test storage.
@@ -27,7 +27,7 @@ public class TestStorage {
      *
      * @throws Exception the exception
      */
-    @Before
+    @BeforeEach
 	public void setUp() throws Exception {
 		storage = new Storage();
 	}
@@ -37,7 +37,7 @@ public class TestStorage {
      *
      * @throws Exception the exception
      */
-    @After
+    @AfterEach
 	public void tearDown() throws Exception {
 	}
 

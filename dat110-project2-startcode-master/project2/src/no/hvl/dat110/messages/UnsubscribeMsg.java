@@ -17,12 +17,11 @@ public class UnsubscribeMsg extends Message {
     /**
      * Instantiates a new Message.
      *
-     * @param type  the type
      * @param user  the user
      * @param topic the message
      */
-    public UnsubscribeMsg(MessageType type, String user, String topic) {
-        super(type, user);
+    public UnsubscribeMsg(String user, String topic) {
+        super(MessageType.UNSUBSCRIBE, user);
         this.topic = topic;
     }
 

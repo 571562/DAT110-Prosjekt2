@@ -17,12 +17,11 @@ public class SubscribeMsg extends Message {
     /**
      * Instantiates a new Message.
      *
-     * @param type  the type
      * @param user  the user
      * @param topic the message
      */
-    public SubscribeMsg(MessageType type, String user, String topic) {
-        super(type, user);
+    public SubscribeMsg(String user, String topic) {
+        super(MessageType.SUBSCRIBE, user);
         this.topic = topic;
     }
 

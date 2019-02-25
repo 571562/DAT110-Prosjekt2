@@ -1,10 +1,10 @@
 package no.hvl.dat110.broker.processing.tests;
 
-import org.junit.Test;
 
 import no.hvl.dat110.broker.Broker;
 import no.hvl.dat110.broker.Dispatcher;
 import no.hvl.dat110.client.Client;
+import org.junit.jupiter.api.Test;
 
 /**
  * The type Test 3 multiple connections.

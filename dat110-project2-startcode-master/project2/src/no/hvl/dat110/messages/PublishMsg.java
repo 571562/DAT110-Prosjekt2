@@ -18,13 +18,12 @@ public class PublishMsg extends Message {
     /**
      * Instantiates a new Message.
      *
-     * @param type    the type
      * @param user    the user
      * @param message the message
      * @param topic   the topic
      */
-    public PublishMsg(MessageType type, String user, String message, String topic) {
-        super(type, user);
+    public PublishMsg(String user, String message, String topic) {
+        super(MessageType.PUBLISH, user);
         this.message = message;
         this.topic = topic;
     }
