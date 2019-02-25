@@ -19,7 +19,7 @@ public abstract class Message {
 
 	
 	public String getUser() {
-		
+
 	    return user;
 	}
 
