@@ -3,6 +3,7 @@ package no.hvl.dat110.broker;
 import java.util.Set;
 import java.util.Collection;
 
+import no.hvl.dat110.client.Client;
 import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.common.Stopable;
 import no.hvl.dat110.messages.*;
@@ -137,9 +138,7 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onCreateTopic:" + msg.toString());
 
-		// TODO: create the topic in the broker storage 
-		
-		throw new RuntimeException("not yet implemented");
+		storage.createTopic(msg.getTopic());
 
 	}
 
@@ -152,9 +151,7 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onDeleteTopic:" + msg.toString());
 
-		// TODO: delete the topic from the broker storage
-		
-		throw new RuntimeException("not yet implemented");
+		storage.deleteTopic(msg.getTopic());
 	}
 
     /**
@@ -166,10 +163,8 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onSubscribe:" + msg.toString());
 
-		// TODO: subscribe user to the topic
-		
-		throw new RuntimeException("not yet implemented");
-		
+        storage.addSubscriber(msg.getUser(), msg.getTopic());
+
 	}
 
     /**
@@ -181,9 +176,7 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onUnsubscribe:" + msg.toString());
 
-		// TODO: unsubscribe user to the topic
-		
-		throw new RuntimeException("not yet implemented");
+		storage.removeSubscriber(msg.getUser(), msg.getTopic());
 
 	}
 
@@ -196,9 +189,14 @@ public class Dispatcher extends Stopable {
 
 		Logger.log("onPublish:" + msg.toString());
 
-		// TODO: publish the message to clients subscribed to the topic
-		
-		throw new RuntimeException("not yet implemented");
-		
+        Collection<String> subscribers = storage.getSubscribers(msg.getTopic());
+        if(subscribers != null) {
+            subscribers.stream().forEach(x -> {
+                ClientSession session = storage.clients.get(x);
+                if(session != null) {
+                    session.send(msg);
+                }
+            });
+        }
 	}
 }

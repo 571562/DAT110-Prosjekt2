@@ -1,6 +1,11 @@
 package no.hvl.dat110.broker;
 
+/**
+ * @author Herborg Irgens Sjo
+ */
+
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,9 +30,9 @@ public class Storage {
      * Instantiates a new Storage.
      */
     public Storage() {
-		subscriptions = new ConcurrentHashMap<String, Set<String>>();
-		clients = new ConcurrentHashMap<String, ClientSession>();
-	}
+        subscriptions = new ConcurrentHashMap<String, Set<String>>();
+        clients = new ConcurrentHashMap<String, ClientSession>();
+    }
 
     /**
      * Gets sessions.
@@ -35,8 +40,8 @@ public class Storage {
      * @return the sessions
      */
     public Collection<ClientSession> getSessions() {
-		return clients.values();
-	}
+        return clients.values();
+    }
 
     /**
      * Gets topics.
@@ -45,9 +50,9 @@ public class Storage {
      */
     public Set<String> getTopics() {
 
-		return subscriptions.keySet();
+        return subscriptions.keySet();
 
-	}
+    }
 
     /**
      * Gets session.
@@ -57,10 +62,10 @@ public class Storage {
      */
     public ClientSession getSession(String user) {
 
-		ClientSession session = clients.get(user);
+        ClientSession session = clients.get(user);
 
-		return session;
-	}
+        return session;
+    }
 
     /**
      * Gets subscribers.
@@ -70,9 +75,9 @@ public class Storage {
      */
     public Set<String> getSubscribers(String topic) {
 
-		return (subscriptions.get(topic));
+        return (subscriptions.get(topic));
 
-	}
+    }
 
     /**
      * Add client session.
@@ -82,11 +87,9 @@ public class Storage {
      */
     public void addClientSession(String user, Connection connection) {
 
-		// TODO: add corresponding client session to the storage
-		
-		throw new RuntimeException("not yet implemented");
-		
-	}
+        clients.put(user, new ClientSession(user, connection));
+
+    }
 
     /**
      * Remove client session.
@@ -95,11 +98,9 @@ public class Storage {
      */
     public void removeClientSession(String user) {
 
-		// TODO: remove client session for user from the storage
+        clients.remove(user);
 
-		throw new RuntimeException("not yet implemented");
-		
-	}
+    }
 
     /**
      * Create topic.
@@ -108,11 +109,9 @@ public class Storage {
      */
     public void createTopic(String topic) {
 
-		// TODO: create topic in the storage
+        subscriptions.put(topic, new HashSet<String>());
 
-		throw new RuntimeException("not yet implemented");
-	
-	}
+    }
 
     /**
      * Delete topic.
@@ -121,11 +120,9 @@ public class Storage {
      */
     public void deleteTopic(String topic) {
 
-		// TODO: delete topic from the storage
+        subscriptions.remove(topic);
 
-		throw new RuntimeException("not yet implemented");
-		
-	}
+    }
 
     /**
      * Add subscriber.
@@ -135,11 +132,11 @@ public class Storage {
      */
     public void addSubscriber(String user, String topic) {
 
-		// TODO: add the user as subscriber to the topic
-		
-		throw new RuntimeException("not yet implemented");
-		
-	}
+        if (subscriptions.contains(topic)) {
+            subscriptions.get(topic).add(user);
+        }
+
+    }
 
     /**
      * Remove subscriber.
@@ -149,8 +146,8 @@ public class Storage {
      */
     public void removeSubscriber(String user, String topic) {
 
-		// TODO: remove the user as subscriber to the topic
-
-		throw new RuntimeException("not yet implemented");
-	}
+        if (subscriptions.contains(topic)) {
+            subscriptions.get(topic).remove(user);
+        }
+    }
 }

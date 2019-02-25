@@ -11,27 +11,22 @@ public class PublishMsg extends Message {
     /**
      * The Topic.
      */
-    String message;
+    private String message;
+    private String topic;
+
 
     /**
      * Instantiates a new Message.
      *
+     * @param type    the type
+     * @param user    the user
      * @param message the message
+     * @param topic   the topic
      */
-    public PublishMsg(String message) {
-        this.message = message;
-    }
-
-    /**
-     * Instantiates a new Message.
-     *
-     * @param type  the type
-     * @param user  the user
-     * @param message the message
-     */
-    public PublishMsg(MessageType type, String user, String message) {
+    public PublishMsg(MessageType type, String user, String message, String topic) {
         super(type, user);
         this.message = message;
+        this.topic = topic;
     }
 
     /**
@@ -52,10 +47,29 @@ public class PublishMsg extends Message {
         this.message = message;
     }
 
+    /**
+     * Gets topic.
+     *
+     * @return the topic
+     */
+    public String getTopic() {
+        return topic;
+    }
+
+    /**
+     * Sets topic.
+     *
+     * @param topic the topic
+     */
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     @Override
     public String toString() {
         return "PublishMsg{" +
                 "message='" + message + '\'' +
+                ", topic='" + topic + '\'' +
                 '}';
     }
 }

@@ -11,16 +11,8 @@ public class SubscribeMsg extends Message {
     /**
      * The Topic.
      */
-    String topic;
+    private String topic;
 
-    /**
-     * Instantiates a new Message.
-     *
-     * @param topic the message
-     */
-    public SubscribeMsg(String topic) {
-        this.topic = topic;
-    }
 
     /**
      * Instantiates a new Message.

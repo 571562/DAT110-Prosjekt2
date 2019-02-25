@@ -11,16 +11,8 @@ public class UnsubscribeMsg extends Message {
     /**
      * The Topic.
      */
-    String topic;
+    private String topic;
 
-    /**
-     * Instantiates a new Message.
-     *
-     * @param topic the message
-     */
-    public UnsubscribeMsg(String topic) {
-        this.topic = topic;
-    }
 
     /**
      * Instantiates a new Message.

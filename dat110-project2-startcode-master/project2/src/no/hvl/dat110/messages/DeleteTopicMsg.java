@@ -15,16 +15,8 @@ public class DeleteTopicMsg extends Message {
     /**
      * The Topic.
      */
-    String topic;
+    private String topic;
 
-    /**
-     * Instantiates a new Delete message msg.
-     *
-     * @param topic the message
-     */
-    public DeleteTopicMsg(String topic) {
-        this.topic = topic;
-    }
 
     /**
      * Instantiates a new Delete message msg.

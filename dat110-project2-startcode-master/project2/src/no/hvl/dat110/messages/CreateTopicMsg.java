@@ -14,16 +14,7 @@ public class CreateTopicMsg extends Message {
     /**
      * The Topic.
      */
-    String topic;
-
-    /**
-     * Instantiates a new Create message msg.
-     *
-     * @param topic the message
-     */
-    public CreateTopicMsg(String topic) {
-        this.topic = topic;
-    }
+    private String topic;
 
     /**
      * Instantiates a new Create message msg.
