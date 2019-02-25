@@ -9,6 +9,9 @@ import no.hvl.dat110.broker.BrokerServer;
 import no.hvl.dat110.broker.Dispatcher;
 import no.hvl.dat110.client.Client;
 
+/**
+ * The type Test 4 create delete.
+ */
 public class Test4CreateDelete extends Test0Base {
 
 	private static String TESTTOPIC = "testtopic";

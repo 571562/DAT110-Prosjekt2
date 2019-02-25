@@ -5,17 +5,31 @@ import java.io.IOException;
 
 import java.net.Socket;
 
+/**
+ * The type Messaging client.
+ */
 public class MessagingClient {
 	
 	private String server;
 	private int port;
-	
-	public MessagingClient(String server, int port) {
+
+    /**
+     * Instantiates a new Messaging client.
+     *
+     * @param server the server
+     * @param port   the port
+     */
+    public MessagingClient(String server, int port) {
 		this.server = server;
 		this.port = port;
 	}
-	
-	// connect to messaging server
+
+    /**
+     * Connect connection.
+     *
+     * @return the connection
+     */
+// connect to messaging server
 	public Connection connect () {
 			
 		Socket clientSocket;

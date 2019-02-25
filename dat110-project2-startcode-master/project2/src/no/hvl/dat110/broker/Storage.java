@@ -7,40 +7,80 @@ import java.util.concurrent.ConcurrentHashMap;
 import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.messagetransport.Connection;
 
+/**
+ * The type Storage.
+ */
 public class Storage {
 
-	protected ConcurrentHashMap<String, Set<String>> subscriptions;
-	protected ConcurrentHashMap<String, ClientSession> clients;
+    /**
+     * The Subscriptions.
+     */
+    protected ConcurrentHashMap<String, Set<String>> subscriptions;
+    /**
+     * The Clients.
+     */
+    protected ConcurrentHashMap<String, ClientSession> clients;
 
-	public Storage() {
+    /**
+     * Instantiates a new Storage.
+     */
+    public Storage() {
 		subscriptions = new ConcurrentHashMap<String, Set<String>>();
 		clients = new ConcurrentHashMap<String, ClientSession>();
 	}
 
-	public Collection<ClientSession> getSessions() {
+    /**
+     * Gets sessions.
+     *
+     * @return the sessions
+     */
+    public Collection<ClientSession> getSessions() {
 		return clients.values();
 	}
 
-	public Set<String> getTopics() {
+    /**
+     * Gets topics.
+     *
+     * @return the topics
+     */
+    public Set<String> getTopics() {
 
 		return subscriptions.keySet();
 
 	}
 
-	public ClientSession getSession(String user) {
+    /**
+     * Gets session.
+     *
+     * @param user the user
+     * @return the session
+     */
+    public ClientSession getSession(String user) {
 
 		ClientSession session = clients.get(user);
 
 		return session;
 	}
 
-	public Set<String> getSubscribers(String topic) {
+    /**
+     * Gets subscribers.
+     *
+     * @param topic the topic
+     * @return the subscribers
+     */
+    public Set<String> getSubscribers(String topic) {
 
 		return (subscriptions.get(topic));
 
 	}
 
-	public void addClientSession(String user, Connection connection) {
+    /**
+     * Add client session.
+     *
+     * @param user       the user
+     * @param connection the connection
+     */
+    public void addClientSession(String user, Connection connection) {
 
 		// TODO: add corresponding client session to the storage
 		
@@ -48,7 +88,12 @@ public class Storage {
 		
 	}
 
-	public void removeClientSession(String user) {
+    /**
+     * Remove client session.
+     *
+     * @param user the user
+     */
+    public void removeClientSession(String user) {
 
 		// TODO: remove client session for user from the storage
 
@@ -56,7 +101,12 @@ public class Storage {
 		
 	}
 
-	public void createTopic(String topic) {
+    /**
+     * Create topic.
+     *
+     * @param topic the topic
+     */
+    public void createTopic(String topic) {
 
 		// TODO: create topic in the storage
 
@@ -64,7 +114,12 @@ public class Storage {
 	
 	}
 
-	public void deleteTopic(String topic) {
+    /**
+     * Delete topic.
+     *
+     * @param topic the topic
+     */
+    public void deleteTopic(String topic) {
 
 		// TODO: delete topic from the storage
 
@@ -72,7 +127,13 @@ public class Storage {
 		
 	}
 
-	public void addSubscriber(String user, String topic) {
+    /**
+     * Add subscriber.
+     *
+     * @param user  the user
+     * @param topic the topic
+     */
+    public void addSubscriber(String user, String topic) {
 
 		// TODO: add the user as subscriber to the topic
 		
@@ -80,7 +141,13 @@ public class Storage {
 		
 	}
 
-	public void removeSubscriber(String user, String topic) {
+    /**
+     * Remove subscriber.
+     *
+     * @param user  the user
+     * @param topic the topic
+     */
+    public void removeSubscriber(String user, String topic) {
 
 		// TODO: remove the user as subscriber to the topic
 

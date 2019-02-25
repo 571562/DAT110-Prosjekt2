@@ -2,11 +2,19 @@ package no.hvl.dat110.broker;
 
 import no.hvl.dat110.common.Logger;
 
+/**
+ * The type Broker server.
+ */
 public class BrokerServer extends Thread {
 
 	private static int BROKER_DEFAULTPORT = 8080;
-	
-	public static void main(String[] args) {
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String[] args) {
 		
 		int port = BROKER_DEFAULTPORT;
 		

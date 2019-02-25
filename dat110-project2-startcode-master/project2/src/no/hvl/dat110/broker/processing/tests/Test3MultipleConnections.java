@@ -6,6 +6,9 @@ import no.hvl.dat110.broker.Broker;
 import no.hvl.dat110.broker.Dispatcher;
 import no.hvl.dat110.client.Client;
 
+/**
+ * The type Test 3 multiple connections.
+ */
 public class Test3MultipleConnections extends Test0Base {
 
 	@Test

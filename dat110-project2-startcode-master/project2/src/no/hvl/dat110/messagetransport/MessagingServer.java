@@ -4,11 +4,19 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * The type Messaging server.
+ */
 public class MessagingServer {
 
 	private ServerSocket welcomeSocket;
-	
-	public MessagingServer(int port) {
+
+    /**
+     * Instantiates a new Messaging server.
+     *
+     * @param port the port
+     */
+    public MessagingServer(int port) {
 		
 		try {
 		
@@ -21,7 +29,12 @@ public class MessagingServer {
 		}
 	}
 
-	// accept an incoming connection from a client
+    /**
+     * Accept connection.
+     *
+     * @return the connection
+     */
+// accept an incoming connection from a client
 	public Connection accept () {
 		
 		Connection connection = null;
@@ -45,8 +58,11 @@ public class MessagingServer {
 		return connection;
 
 	}
-	
-	public void stop() {
+
+    /**
+     * Stop.
+     */
+    public void stop() {
 		
 		if (welcomeSocket != null) {
 			

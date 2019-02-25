@@ -1,24 +1,46 @@
 package no.hvl.dat110.messages;
 
+/**
+ * The type Message.
+ */
 public abstract class Message {
 
 	private MessageType type;
 	private String user;
-	
-	public Message() {
+
+    /**
+     * Instantiates a new Message.
+     */
+    public Message() {
 		
 	}
-	
-	public Message(MessageType type, String user) {
+
+    /**
+     * Instantiates a new Message.
+     *
+     * @param type the type
+     * @param user the user
+     */
+    public Message(MessageType type, String user) {
 		this.type = type;
 		this.user = user;
 	}
 
-	public MessageType getType() {
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
+    public MessageType getType() {
 	    return this.type; }
 
-	
-	public String getUser() {
+
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
+    public String getUser() {
 
 	    return user;
 	}

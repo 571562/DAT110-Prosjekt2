@@ -13,22 +13,38 @@ import no.hvl.dat110.broker.Storage;
 import no.hvl.dat110.messages.ConnectMsg;
 import no.hvl.dat110.messages.MessageUtils;
 
+/**
+ * The type Test storage.
+ */
 public class TestStorage {
 
 	private Storage storage;
 	private static String TESTUSER = "testuser";
 	private static String TESTTOPIC = "testtopic";
-	
-	@Before
+
+    /**
+     * Sets up.
+     *
+     * @throws Exception the exception
+     */
+    @Before
 	public void setUp() throws Exception {
 		storage = new Storage();
 	}
 
-	@After
+    /**
+     * Tear down.
+     *
+     * @throws Exception the exception
+     */
+    @After
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+    /**
+     * Testadd client session.
+     */
+    @Test
 	public void testaddClientSession() {
 		
 		storage.addClientSession(TESTUSER, null);
@@ -38,8 +54,11 @@ public class TestStorage {
 		assertNotEquals(storage.getSession(TESTUSER),null);
 	
 	}
-	
-	@Test
+
+    /**
+     * Testremove client session.
+     */
+    @Test
 	public void testremoveClientSession() {
 		
 		storage.addClientSession(TESTUSER, null);
@@ -54,8 +73,11 @@ public class TestStorage {
 		
 		assertEquals(storage.getSession(TESTUSER),null);
 	}
-	
-	@Test
+
+    /**
+     * Testcreate topic.
+     */
+    @Test
 	public void testcreateTopic () {
 		
 		storage.createTopic(TESTTOPIC);
@@ -66,8 +88,11 @@ public class TestStorage {
 
 		assertTrue(topics.contains(TESTTOPIC));
 	}
-	
-	@Test
+
+    /**
+     * Testdelete topic.
+     */
+    @Test
 	public void testdeleteTopic () {
 		
 		storage.createTopic(TESTTOPIC);
@@ -78,7 +103,10 @@ public class TestStorage {
 		
 	}
 
-	@Test
+    /**
+     * Testadd subscriber.
+     */
+    @Test
 	public void testaddSubscriber () {
 		
 		storage.createTopic(TESTTOPIC);
@@ -92,8 +120,11 @@ public class TestStorage {
 		assertTrue(subscribers.contains(TESTUSER));
 		
 	}
-	
-	@Test
+
+    /**
+     * Testadd subscribers.
+     */
+    @Test
 	public void testaddSubscribers () {
 		
 		String TESTUSER1 = TESTUSER+"1";
@@ -113,8 +144,11 @@ public class TestStorage {
 		assertTrue(subscribers.contains(TESTUSER2));
 		
 	}
-	
-	@Test
+
+    /**
+     * Testremove subscribers.
+     */
+    @Test
 	public void testremoveSubscribers () {
 	
 		String TESTUSER1 = TESTUSER+"1";

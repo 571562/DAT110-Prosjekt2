@@ -7,13 +7,21 @@ import java.io.IOException;
 import java.net.Socket;
 
 
+/**
+ * The type Connection.
+ */
 public class Connection {
 
 	private DataOutputStream outStream; // for writing bytes to the TCP connection
 	private DataInputStream inStream; // for reading bytes from the TCP connection
 	private Socket socket; // socket for the underlying TCP connection
 
-	public Connection(Socket socket) {
+    /**
+     * Instantiates a new Connection.
+     *
+     * @param socket the socket
+     */
+    public Connection(Socket socket) {
 
 		try {
 
@@ -30,7 +38,12 @@ public class Connection {
 		}
 	}
 
-	public void send(TransportMessage message) {
+    /**
+     * Send.
+     *
+     * @param message the message
+     */
+    public void send(TransportMessage message) {
 
 		// TODO 
 		// encapsulate the data contained in the message and write to the output stream
@@ -49,7 +62,12 @@ public class Connection {
 
 	}
 
-	public boolean hasData () {
+    /**
+     * Has data boolean.
+     *
+     * @return the boolean
+     */
+    public boolean hasData () {
 		
 		boolean hasdata = false;
 		
@@ -66,7 +84,12 @@ public class Connection {
 		return hasdata;
 	}
 
-	public TransportMessage receive() {
+    /**
+     * Receive transport message.
+     *
+     * @return the transport message
+     */
+    public TransportMessage receive() {
 
 		TransportMessage message;
 		byte[] recvbuf;
@@ -98,7 +121,10 @@ public class Connection {
 		
 	}
 
-	// close the connection by closing streams and the underlying socket
+    /**
+     * Close.
+     */
+// close the connection by closing streams and the underlying socket
 	public void close() {
 
 		try {

@@ -7,9 +7,18 @@ import no.hvl.dat110.messages.*;
 import no.hvl.dat110.messagetransport.Connection;
 import no.hvl.dat110.messagetransport.TransportMessage;
 
+/**
+ * The type Message utils.
+ */
 public class MessageUtils {
 
-	public static Message fromJson(String msg) {
+    /**
+     * From json message.
+     *
+     * @param msg the msg
+     * @return the message
+     */
+    public static Message fromJson(String msg) {
 
 		JsonParser jsonParser = new JsonParser();
 		JsonObject json = jsonParser.parse(msg).getAsJsonObject();
@@ -58,12 +67,24 @@ public class MessageUtils {
 		return message;
 	}
 
-	public static Message fromBytes(byte[] payload) {
+    /**
+     * From bytes message.
+     *
+     * @param payload the payload
+     * @return the message
+     */
+    public static Message fromBytes(byte[] payload) {
 		
 		return (fromJson (new String(payload)));
 	}
-	
-	public static String toJson(Message msg) {
+
+    /**
+     * To json string.
+     *
+     * @param msg the msg
+     * @return the string
+     */
+    public static String toJson(Message msg) {
 
 		Gson gson = new Gson();
 
@@ -71,28 +92,58 @@ public class MessageUtils {
 
 		return json;
 	}
-	
-	public static byte[] getBytes(Message msg) {
+
+    /**
+     * Get bytes byte [ ].
+     *
+     * @param msg the msg
+     * @return the byte [ ]
+     */
+    public static byte[] getBytes(Message msg) {
 		
 		return toJson(msg).getBytes();
 				
 	}
-	
-	public static TransportMessage toTransportMessage(Message msg) {
+
+    /**
+     * To transport message transport message.
+     *
+     * @param msg the msg
+     * @return the transport message
+     */
+    public static TransportMessage toTransportMessage(Message msg) {
 		
 		return new TransportMessage(getBytes(msg));
 	}
-	
-	public static Message fromTransportMessage(TransportMessage msg) {
+
+    /**
+     * From transport message message.
+     *
+     * @param msg the msg
+     * @return the message
+     */
+    public static Message fromTransportMessage(TransportMessage msg) {
 		
 		return fromBytes(msg.getData());
 	}
 
-	public static void send (Connection connection, Message message) {
+    /**
+     * Send.
+     *
+     * @param connection the connection
+     * @param message    the message
+     */
+    public static void send (Connection connection, Message message) {
 		connection.send(toTransportMessage(message));
 	}
-	
-	public static Message receive (Connection connection) {
+
+    /**
+     * Receive message.
+     *
+     * @param connection the connection
+     * @return the message
+     */
+    public static Message receive (Connection connection) {
 		
 		Logger.log("?");
 		

@@ -10,9 +10,15 @@ import no.hvl.dat110.client.Client;
 import no.hvl.dat110.messages.Message;
 import no.hvl.dat110.messages.PublishMsg;
 
+/**
+ * The type Test 6 publish.
+ */
 public class Test6Publish extends Test0Base {
 
-	public static String TESTTOPIC = "testtopic";
+    /**
+     * The constant TESTTOPIC.
+     */
+    public static String TESTTOPIC = "testtopic";
 	
 	@Test
 	public void test() {

@@ -1,10 +1,18 @@
 package no.hvl.dat110.iotsystem;
 
+/**
+ * The type Temperature sensor.
+ */
 public class TemperatureSensor {
 
 	private static final int RANGE = 20;
 
-	public int read() {
+    /**
+     * Read int.
+     *
+     * @return the int
+     */
+    public int read() {
 
 		long seconds = System.currentTimeMillis();
 

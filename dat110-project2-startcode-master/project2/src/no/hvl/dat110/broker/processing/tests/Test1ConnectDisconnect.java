@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import no.hvl.dat110.client.Client;
 
+/**
+ * The type Test 1 connect disconnect.
+ */
 public class Test1ConnectDisconnect extends Test0Base {
 
 	@Test

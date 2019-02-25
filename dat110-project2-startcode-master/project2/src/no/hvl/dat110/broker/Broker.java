@@ -9,21 +9,35 @@ import no.hvl.dat110.messages.MessageUtils;
 import no.hvl.dat110.messagetransport.Connection;
 import no.hvl.dat110.messagetransport.MessagingServer;
 
-public class Broker extends Stopable { 
+/**
+ * The type Broker.
+ */
+public class Broker extends Stopable {
 
 	private boolean stopable = false;
 	private int maxaccept = 0;
 	
 	private MessagingServer server;
 	private Dispatcher dispatcher;
-		
-	public Broker (Dispatcher dispatcher,int port) {
+
+    /**
+     * Instantiates a new Broker.
+     *
+     * @param dispatcher the dispatcher
+     * @param port       the port
+     */
+    public Broker (Dispatcher dispatcher,int port) {
 		super("Broker");
 		server = new MessagingServer(port);
 		this.dispatcher = dispatcher;
 	}
-	
-	public void setMaxAccept(int n) {
+
+    /**
+     * Sets max accept.
+     *
+     * @param n the n
+     */
+    public void setMaxAccept(int n) {
 		this.stopable = true;
 		this.maxaccept = n;
 		

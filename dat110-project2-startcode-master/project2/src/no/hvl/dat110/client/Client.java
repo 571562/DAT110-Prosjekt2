@@ -4,13 +4,23 @@ import no.hvl.dat110.messages.*;
 import no.hvl.dat110.messagetransport.Connection;
 import no.hvl.dat110.messagetransport.MessagingClient;
 
+/**
+ * The type Client.
+ */
 public class Client extends Thread {
 
 	private MessagingClient client;
 	private Connection connection;
 	private String user;
 
-	public Client(String user, String server, int port) {
+    /**
+     * Instantiates a new Client.
+     *
+     * @param user   the user
+     * @param server the server
+     * @param port   the port
+     */
+    public Client(String user, String server, int port) {
 		client = new MessagingClient(server, port);
 		this.user = user;
 	}
@@ -21,13 +31,23 @@ public class Client extends Thread {
 
 	}
 
-	public Message receive() {
+    /**
+     * Receive message.
+     *
+     * @return the message
+     */
+    public Message receive() {
 
 		return MessageUtils.fromTransportMessage(connection.receive());
 
 	}
 
-	public boolean connect() {
+    /**
+     * Connect boolean.
+     *
+     * @return the boolean
+     */
+    public boolean connect() {
 
 		boolean connected = false;
 
@@ -45,7 +65,10 @@ public class Client extends Thread {
 		return connected;
 	}
 
-	public void disconnect() {
+    /**
+     * Disconnect.
+     */
+    public void disconnect() {
 
 		DisconnectMsg msg = new DisconnectMsg(user);
 
@@ -55,7 +78,12 @@ public class Client extends Thread {
 
 	}
 
-	public void subscribe(String topic) {
+    /**
+     * Subscribe.
+     *
+     * @param topic the topic
+     */
+    public void subscribe(String topic) {
 
 		SubscribeMsg msg = new SubscribeMsg(user, topic);
 
@@ -63,7 +91,12 @@ public class Client extends Thread {
 
 	}
 
-	public void unsubscribe(String topic) {
+    /**
+     * Unsubscribe.
+     *
+     * @param topic the topic
+     */
+    public void unsubscribe(String topic) {
 
 		UnsubscribeMsg msg = new UnsubscribeMsg(user, topic);
 
@@ -71,7 +104,13 @@ public class Client extends Thread {
 
 	}
 
-	public void publish(String topic, String message) {
+    /**
+     * Publish.
+     *
+     * @param topic   the topic
+     * @param message the message
+     */
+    public void publish(String topic, String message) {
 
 		PublishMsg msg = new PublishMsg(user, topic, message);
 
@@ -79,7 +118,12 @@ public class Client extends Thread {
 
 	}
 
-	public void createTopic(String topic) {
+    /**
+     * Create topic.
+     *
+     * @param topic the topic
+     */
+    public void createTopic(String topic) {
 
 		CreateTopicMsg msg = new CreateTopicMsg(user, topic);
 
@@ -87,7 +131,12 @@ public class Client extends Thread {
 
 	}
 
-	public void deleteTopic(String topic) {
+    /**
+     * Delete topic.
+     *
+     * @param topic the topic
+     */
+    public void deleteTopic(String topic) {
 
 		DeleteTopicMsg msg = new DeleteTopicMsg(user, topic);
 

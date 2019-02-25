@@ -6,9 +6,15 @@ import no.hvl.dat110.broker.Broker;
 import no.hvl.dat110.broker.Dispatcher;
 import no.hvl.dat110.client.Client;
 
+/**
+ * The type Test 5 subscribe.
+ */
 public class Test5Subscribe extends Test0Base {
 
-	public static String TESTTOPIC = "testtopic";
+    /**
+     * The constant TESTTOPIC.
+     */
+    public static String TESTTOPIC = "testtopic";
 	
 	@Test
 	public void test() {

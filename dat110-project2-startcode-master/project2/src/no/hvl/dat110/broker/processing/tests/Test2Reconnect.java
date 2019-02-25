@@ -6,6 +6,9 @@ import no.hvl.dat110.broker.Broker;
 import no.hvl.dat110.broker.Dispatcher;
 import no.hvl.dat110.client.Client;
 
+/**
+ * The type Test 2 reconnect.
+ */
 public class Test2Reconnect extends Test0Base {
 
 	@Test

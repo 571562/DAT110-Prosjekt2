@@ -8,9 +8,15 @@ import no.hvl.dat110.broker.BrokerServer;
 import no.hvl.dat110.iotsystem.DisplayDevice;
 import no.hvl.dat110.iotsystem.TemperatureDevice;
 
+/**
+ * The type Test io t system.
+ */
 public class TestIoTSystem {
 
-	@Test
+    /**
+     * Test.
+     */
+    @Test
 	public void test() {
 
 		System.out.println("IoT system starting ...");

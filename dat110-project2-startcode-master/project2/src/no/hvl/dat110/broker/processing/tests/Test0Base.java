@@ -10,18 +10,44 @@ import no.hvl.dat110.broker.Broker;
 import no.hvl.dat110.broker.Dispatcher;
 import no.hvl.dat110.broker.Storage;
 
+/**
+ * The type Test 0 base.
+ */
 public abstract class Test0Base {
 
-	protected Dispatcher dispatcher;
-	protected Broker broker;
-	protected Storage storage;
-	
-	protected int BROKER_TESTPORT = 8080;
-	protected String BROKER_TESTHOST = "localhost";
-	
-	protected int RUNTIME = 10000; // time to allow test to execute
-	
-	@Before
+    /**
+     * The Dispatcher.
+     */
+    protected Dispatcher dispatcher;
+    /**
+     * The Broker.
+     */
+    protected Broker broker;
+    /**
+     * The Storage.
+     */
+    protected Storage storage;
+
+    /**
+     * The Broker testport.
+     */
+    protected int BROKER_TESTPORT = 8080;
+    /**
+     * The Broker testhost.
+     */
+    protected String BROKER_TESTHOST = "localhost";
+
+    /**
+     * The Runtime.
+     */
+    protected int RUNTIME = 10000; // time to allow test to execute
+
+    /**
+     * Sets up.
+     *
+     * @throws Exception the exception
+     */
+    @Before
 	public void setUp() throws Exception {
 		
 		storage = new Storage();
@@ -40,7 +66,12 @@ public abstract class Test0Base {
 		
 	}
 
-	@After
+    /**
+     * Tear down.
+     *
+     * @throws Exception the exception
+     */
+    @After
 	public void tearDown() throws Exception {
 		
 		try {
@@ -53,7 +84,10 @@ public abstract class Test0Base {
 		}
 	}
 
-	@Test
+    /**
+     * Test.
+     */
+    @Test
 	public void test() {
 		fail("Not yet implemented");
 	}

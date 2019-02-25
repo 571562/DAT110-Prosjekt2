@@ -8,11 +8,19 @@ import no.hvl.dat110.common.Stopable;
 import no.hvl.dat110.messages.*;
 import no.hvl.dat110.messagetransport.Connection;
 
+/**
+ * The type Dispatcher.
+ */
 public class Dispatcher extends Stopable {
 
 	private Storage storage;
 
-	public Dispatcher(Storage storage) {
+    /**
+     * Instantiates a new Dispatcher.
+     *
+     * @param storage the storage
+     */
+    public Dispatcher(Storage storage) {
 		super("Dispatcher");
 		this.storage = storage;
 
@@ -44,7 +52,13 @@ public class Dispatcher extends Stopable {
 		}
 	}
 
-	public void dispatch(ClientSession client, Message msg) {
+    /**
+     * Dispatch.
+     *
+     * @param client the client
+     * @param msg    the msg
+     */
+    public void dispatch(ClientSession client, Message msg) {
 
 		MessageType type = msg.getType();
 
@@ -81,7 +95,13 @@ public class Dispatcher extends Stopable {
 		}
 	}
 
-	// called from Broker after having established the underlying connection
+    /**
+     * On connect.
+     *
+     * @param msg        the msg
+     * @param connection the connection
+     */
+// called from Broker after having established the underlying connection
 	public void onConnect(ConnectMsg msg, Connection connection) {
 
 		String user = msg.getUser();
@@ -92,7 +112,12 @@ public class Dispatcher extends Stopable {
 
 	}
 
-	// called by dispatch upon receiving a disconnect message 
+    /**
+     * On disconnect.
+     *
+     * @param msg the msg
+     */
+// called by dispatch upon receiving a disconnect message
 	public void onDisconnect(DisconnectMsg msg) {
 
 		String user = msg.getUser();
@@ -103,7 +128,12 @@ public class Dispatcher extends Stopable {
 
 	}
 
-	public void onCreateTopic(CreateTopicMsg msg) {
+    /**
+     * On create topic.
+     *
+     * @param msg the msg
+     */
+    public void onCreateTopic(CreateTopicMsg msg) {
 
 		Logger.log("onCreateTopic:" + msg.toString());
 
@@ -113,7 +143,12 @@ public class Dispatcher extends Stopable {
 
 	}
 
-	public void onDeleteTopic(DeleteTopicMsg msg) {
+    /**
+     * On delete topic.
+     *
+     * @param msg the msg
+     */
+    public void onDeleteTopic(DeleteTopicMsg msg) {
 
 		Logger.log("onDeleteTopic:" + msg.toString());
 
@@ -122,7 +157,12 @@ public class Dispatcher extends Stopable {
 		throw new RuntimeException("not yet implemented");
 	}
 
-	public void onSubscribe(SubscribeMsg msg) {
+    /**
+     * On subscribe.
+     *
+     * @param msg the msg
+     */
+    public void onSubscribe(SubscribeMsg msg) {
 
 		Logger.log("onSubscribe:" + msg.toString());
 
@@ -132,7 +172,12 @@ public class Dispatcher extends Stopable {
 		
 	}
 
-	public void onUnsubscribe(UnsubscribeMsg msg) {
+    /**
+     * On unsubscribe.
+     *
+     * @param msg the msg
+     */
+    public void onUnsubscribe(UnsubscribeMsg msg) {
 
 		Logger.log("onUnsubscribe:" + msg.toString());
 
@@ -142,7 +187,12 @@ public class Dispatcher extends Stopable {
 
 	}
 
-	public void onPublish(PublishMsg msg) {
+    /**
+     * On publish.
+     *
+     * @param msg the msg
+     */
+    public void onPublish(PublishMsg msg) {
 
 		Logger.log("onPublish:" + msg.toString());
 
