@@ -50,33 +50,33 @@ public class Dispatcher extends Stopable {
 
 		switch (type) {
 
-		case DISCONNECT:
-			onDisconnect((DisconnectMsg) msg);
-			break;
+			case DISCONNECT:
+				onDisconnect((DisconnectMsg) msg);
+				break;
 
-		case CREATETOPIC:
-			onCreateTopic((CreateTopicMsg) msg);
-			break;
+			case CREATETOPIC:
+				onCreateTopic((CreateTopicMsg) msg);
+				break;
 
-		case DELETETOPIC:
-			onDeleteTopic((DeleteTopicMsg) msg);
-			break;
+			case DELETETOPIC:
+				onDeleteTopic((DeleteTopicMsg) msg);
+				break;
 
-		case SUBSCRIBE:
-			onSubscribe((SubscribeMsg) msg);
-			break;
+			case SUBSCRIBE:
+				onSubscribe((SubscribeMsg) msg);
+				break;
 
-		case UNSUBSCRIBE:
-			onUnsubscribe((UnsubscribeMsg) msg);
-			break;
+			case UNSUBSCRIBE:
+				onUnsubscribe((UnsubscribeMsg) msg);
+				break;
 
-		case PUBLISH:
-			onPublish((PublishMsg) msg);
-			break;
+			case PUBLISH:
+				onPublish((PublishMsg) msg);
+				break;
 
-		default:
-			Logger.log("broker dispatch - unhandled message type");
-			break;
+			default:
+				Logger.log("broker dispatch - unhandled message type");
+				break;
 
 		}
 	}
@@ -89,10 +89,9 @@ public class Dispatcher extends Stopable {
 		Logger.log("onConnect:" + msg.toString());
 
 		storage.addClientSession(user, connection);
-
 	}
 
-	// called by dispatch upon receiving a disconnect message 
+	// called by dispatch upon receiving a disconnect message
 	public void onDisconnect(DisconnectMsg msg) {
 
 		String user = msg.getUser();
@@ -100,55 +99,49 @@ public class Dispatcher extends Stopable {
 		Logger.log("onDisconnect:" + msg.toString());
 
 		storage.removeClientSession(user);
-
 	}
 
 	public void onCreateTopic(CreateTopicMsg msg) {
 
 		Logger.log("onCreateTopic:" + msg.toString());
 
-		// TODO: create the topic in the broker storage 
-		
-		throw new RuntimeException("not yet implemented");
-
+		storage.createTopic(msg.getTopic());
 	}
 
 	public void onDeleteTopic(DeleteTopicMsg msg) {
 
 		Logger.log("onDeleteTopic:" + msg.toString());
 
-		// TODO: delete the topic from the broker storage
-		
-		throw new RuntimeException("not yet implemented");
+		storage.deleteTopic(msg.getTopic());
 	}
 
 	public void onSubscribe(SubscribeMsg msg) {
 
 		Logger.log("onSubscribe:" + msg.toString());
 
-		// TODO: subscribe user to the topic
-		
-		throw new RuntimeException("not yet implemented");
-		
+		storage.addSubscriber(msg.getUser(), msg.getTopic());
 	}
 
 	public void onUnsubscribe(UnsubscribeMsg msg) {
 
 		Logger.log("onUnsubscribe:" + msg.toString());
 
-		// TODO: unsubscribe user to the topic
-		
-		throw new RuntimeException("not yet implemented");
-
+		storage.removeSubscriber(msg.getUser(), msg.getTopic());
 	}
 
 	public void onPublish(PublishMsg msg) {
 
 		Logger.log("onPublish:" + msg.toString());
 
-		// TODO: publish the message to clients subscribed to the topic
-		
-		throw new RuntimeException("not yet implemented");
-		
+		Collection<String> subscribers = storage.getSubscribers(msg.getTopic());
+		if (subscribers != null) {
+			subscribers.stream().forEach(x -> {
+				ClientSession session = storage.clients.get(x);
+				if (session != null) {
+					session.send(msg);
+				}
+			});
+		}
+
 	}
 }

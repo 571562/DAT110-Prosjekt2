@@ -2,7 +2,7 @@ package no.hvl.dat110.broker.processing.tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import no.hvl.dat110.broker.Broker;
 import no.hvl.dat110.broker.BrokerServer;
