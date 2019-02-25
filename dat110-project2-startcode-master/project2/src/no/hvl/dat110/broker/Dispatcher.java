@@ -1,7 +1,10 @@
 package no.hvl.dat110.broker;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.Collection;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.common.Stopable;
@@ -11,11 +14,14 @@ import no.hvl.dat110.messagetransport.Connection;
 public class Dispatcher extends Stopable {
 
 	private Storage storage;
+	private HashMap<String, DispatcherThread> threads;
+	private LinkedBlockingQueue<Message> messagesQueue;
 
 	public Dispatcher(Storage storage) {
 		super("Dispatcher");
 		this.storage = storage;
-
+		this.threads = new HashMap<>();
+		this.messagesQueue = new LinkedBlockingQueue<>();
 	}
 
 	@Override
@@ -24,26 +30,22 @@ public class Dispatcher extends Stopable {
 		Collection<ClientSession> clients = storage.getSessions();
 
 		Logger.lg(".");
-		for (ClientSession client : clients) {
 
-			Message msg = null;
-
-			if (client.hasData()) {
-				msg = client.receive();
-			}
-
-			if (msg != null) {
-				dispatch(client, msg);
-			}
-		}
-
+		Message msg = null;
 		try {
-			Thread.sleep(1000);
+			msg = messagesQueue.poll(2000, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		if (msg != null) {
+			ClientSession client = storage.clients.get(msg.getUser());
+			if (client != null) {
+				dispatch(client, msg);
+			}
+		}
 	}
 
+	// Dispatcher handles only connect and disconnect, other message are handled by dispatcherThreads
 	public void dispatch(ClientSession client, Message msg) {
 
 		MessageType type = msg.getType();
@@ -53,31 +55,6 @@ public class Dispatcher extends Stopable {
 			case DISCONNECT:
 				onDisconnect((DisconnectMsg) msg);
 				break;
-
-			case CREATETOPIC:
-				onCreateTopic((CreateTopicMsg) msg);
-				break;
-
-			case DELETETOPIC:
-				onDeleteTopic((DeleteTopicMsg) msg);
-				break;
-
-			case SUBSCRIBE:
-				onSubscribe((SubscribeMsg) msg);
-				break;
-
-			case UNSUBSCRIBE:
-				onUnsubscribe((UnsubscribeMsg) msg);
-				break;
-
-			case PUBLISH:
-				onPublish((PublishMsg) msg);
-				break;
-
-			default:
-				Logger.log("broker dispatch - unhandled message type");
-				break;
-
 		}
 	}
 
@@ -89,6 +66,12 @@ public class Dispatcher extends Stopable {
 		Logger.log("onConnect:" + msg.toString());
 
 		storage.addClientSession(user, connection);
+
+		ClientSession client = storage.clients.get(user);
+
+		DispatcherThread dt = new DispatcherThread(storage, client, messagesQueue);
+		threads.put(user, dt);
+		dt.start();
 	}
 
 	// called by dispatch upon receiving a disconnect message
@@ -99,49 +82,38 @@ public class Dispatcher extends Stopable {
 		Logger.log("onDisconnect:" + msg.toString());
 
 		storage.removeClientSession(user);
-	}
 
-	public void onCreateTopic(CreateTopicMsg msg) {
+		DispatcherThread dt = threads.get(user);
 
-		Logger.log("onCreateTopic:" + msg.toString());
+		System.out.println(msg.getUser() + " disconnetcing");
+		if (dt != null) {
+			dt.doStop();
 
-		storage.createTopic(msg.getTopic());
-	}
+			try {
+				dt.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
-	public void onDeleteTopic(DeleteTopicMsg msg) {
-
-		Logger.log("onDeleteTopic:" + msg.toString());
-
-		storage.deleteTopic(msg.getTopic());
-	}
-
-	public void onSubscribe(SubscribeMsg msg) {
-
-		Logger.log("onSubscribe:" + msg.toString());
-
-		storage.addSubscriber(msg.getUser(), msg.getTopic());
-	}
-
-	public void onUnsubscribe(UnsubscribeMsg msg) {
-
-		Logger.log("onUnsubscribe:" + msg.toString());
-
-		storage.removeSubscriber(msg.getUser(), msg.getTopic());
-	}
-
-	public void onPublish(PublishMsg msg) {
-
-		Logger.log("onPublish:" + msg.toString());
-
-		Collection<String> subscribers = storage.getSubscribers(msg.getTopic());
-		if (subscribers != null) {
-			subscribers.stream().forEach(x -> {
-				ClientSession session = storage.clients.get(x);
-				if (session != null) {
-					session.send(msg);
-				}
-			});
+			threads.remove(user);
 		}
+	}
 
+	@Override
+	public void doStop() {
+		super.doStop();
+
+		threads.forEach((k, v) -> {
+			System.out.println("stopping " + v.getName());
+			v.doStop();
+		});
+
+		threads.forEach((k, v) -> {
+			try {
+				v.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 }
