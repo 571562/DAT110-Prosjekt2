@@ -13,12 +13,19 @@ public class DisplayDevice {
 		System.out.println("Display starting ...");
 		
 		// TODO - START
-				
+		Client displayClient = new Client("displayDevice", Common.BROKERHOST, Common.BROKERPORT);
+		displayClient.connect();
+		displayClient.createTopic(Common.TEMPTOPIC);
+		displayClient.subscribe(Common.TEMPTOPIC);
+
+		for (int i = 0; i < COUNT; i++) {
+			System.out.println("Displaying: " + ((PublishMsg) displayClient.receive()).getMessage());
+		}
+
+		displayClient.disconnect();
 		// TODO - END
 		
 		System.out.println("Display stopping ... ");
-		
-		throw new RuntimeException("not yet implemented");
-		
+
 	}
 }
